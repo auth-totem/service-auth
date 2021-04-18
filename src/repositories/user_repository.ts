@@ -1,6 +1,6 @@
 import { Knex } from 'knex';
 import { User } from '../@types/interface';
-import { WALLET } from '../db/tables';
+import { CADASTER, WALLET } from '../db/tables';
 
 export default class UserRepository {
   private db: Knex;
@@ -14,11 +14,24 @@ export default class UserRepository {
       return await this.db
         .select('idCadaster AS id')
         .from(WALLET)
-        .where('codeWallet', code)
         .andWhere('status', 'A')
+        .where('codeWallet', code)
         .first();
     } catch (e) {
       throw 'error on user repository';
+    }
+  }
+
+  async finUserWithNfcCode(nfc: string): Promise<User> {
+    try {
+      return await this.db
+        .select('idCadaster AS id')
+        .from(CADASTER)
+        .where('categoryCode1', nfc)
+        .andWhere('status', 'A')
+        .first();
+    } catch (e) {
+      throw 'fail in find user';
     }
   }
 }
