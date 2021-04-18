@@ -3,5 +3,6 @@ dist/
 log/
 logs/
 .vscode/
+db_volume/
 
 *.env

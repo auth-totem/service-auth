@@ -5,7 +5,7 @@
       "type": "node-terminal",
       "request": "launch",
       "name": "Launch API",
-      "command": "docker rm --force totem-auth-service && docker run -d -p 3000:3000 --env-file \"$(pwd)\"/.env --mount type=bind,source=\"$(pwd)\"/package.json,target=/usr/totem/auth/package.json --mount type=bind,source=\"$(pwd)\"/src,target=/usr/totem/auth/src --name totem-auth-service miguel-panuto/auth-totem"
+      "command": "docker-compose up -d"
     }
   ]
 }

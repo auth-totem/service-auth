@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  bd-mysql:
+    container_name: auth-db
+    image: mysql
+    env_file:
+      - ./db_env.env
+    ports:
+      - 3306:3306
+    networks:
+      - auth-network
+    volumes:
+      - ./db_volume/db-config:/etc/mysql
+      - ./db_volume/db-files:/var/lib/mysql-files
+      - ./db_volume/db-data:/var/lib/mysql
+      - ./db_volume/db/backup/files/:/data_backup/data
+
+  auth-service:
+    container_name: auth-service
+    build:
+      dockerfile: ./Dockerfile.dev
+      context: .
+    image: miguel-panuto/auth-service
+    env_file: ./.env
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./package.json:/usr/totem/auth/package.json
+      - ./src:/usr/totem/auth/src
+      -  /usr/totem/auth/node_modules
+    networks:
+      - auth-network
+
+networks:
+  auth-network:
+    driver: bridge

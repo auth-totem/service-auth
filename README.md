@@ -1,8 +1,8 @@
-# Auth Service with Firebase Backend
+# Auth Service
 
 ## Needed setups
 
-Create a file called ".env" on the root folder, that has to contains all enviroment variables from ".env.example"
+Create a file called ".env" on the root folder, that has to contains all enviroment variables from ".env.example", and a file called "db_env.env" with the variables from "db_env.env.example"
 
 ## Running the project as devlopment
 
@@ -24,13 +24,7 @@ yarn dev:watch or npm run dev:watch
 
 ### Docker
 
-First build the app on docker
-
-```
-yarn build:docker or npm run build:docker
-```
-
-And then run the application running with vscode
+Run the application running with vscode
 
 ```
 CTRL + F5
@@ -39,5 +33,5 @@ CTRL + F5
 Or you can use the docker run command
 
 ```
-docker rm --force totem-auth-service && docker run -d -p 3000:3000 --env-file "$(pwd)"/.env --mount type=bind,source="$(pwd)"/package.json,target=/usr/totem/auth/package.json --mount type=bind,source="$(pwd)"/src,target=/usr/totem/auth/src --name totem-auth-service miguel-panuto/auth-totem
+docker-compose up -d
 ```
