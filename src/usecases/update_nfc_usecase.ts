@@ -1,24 +1,22 @@
 import NfcRepository from '../repositories/nfc_repository';
 import UserRepository from '../repositories/user_repository';
 
-export default class RegisterSmartphoneNfcUsecase {
+export default class UpdateNfcUsecase {
   private userRepository: UserRepository;
   private nfcRepository: NfcRepository;
+
   constructor(userRepository: UserRepository, nfcRepository: NfcRepository) {
     this.userRepository = userRepository;
     this.nfcRepository = nfcRepository;
   }
 
-  async register(code: string, nfcCode: string) {
+  async updateNfc(code: string, nfcCode: string) {
     try {
       const user = await this.userRepository.findUserWithCode(code);
-      if (user === undefined) throw 'user not exists';
-      const isUserUpdated = await this.nfcRepository.registerNewNfc(
-        user.id,
-        nfcCode
-      );
-      if (isUserUpdated) return { message: 'user with nfc code', id: user.id };
-      throw 'fail in put nfc code';
+      if (user === undefined) throw 'user not finded';
+      const isUpdatedUser = this.nfcRepository.updateNfc(user.id, nfcCode);
+      if (isUpdatedUser) return { message: 'user updated', user: user.id };
+      throw 'fail in update user';
     } catch (e) {
       throw e;
     }
