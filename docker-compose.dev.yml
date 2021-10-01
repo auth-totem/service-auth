@@ -22,8 +22,13 @@ services:
       dockerfile: ./Dockerfile.dev
       context: .
     image: miguel-panuto/auth-service
+    env_file: ./.env
     ports:
       - ${PORT}:${PORT}
+    volumes:
+      - ./package.json:/usr/totem/auth/package.json
+      - ./src:/usr/totem/auth/src
+      -  /usr/totem/auth/node_modules
     networks:
       - auth-network
 
