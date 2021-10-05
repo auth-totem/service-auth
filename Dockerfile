@@ -1,13 +1,14 @@
 FROM node:14.16.1-alpine
 
-WORKDIR /usr/totem/auth
+WORKDIR /usr/local/user-ms
 
-COPY package*.json .
+COPY package.json .
+COPY package-lock.json .
 
-RUN npm install
+RUN npm install --silent --progress=false --production
 
 COPY . .
 
-RUN npm run build
+EXPOSE 3000
 
-CMD [ "npm", "run", "start" ]
+ENTRYPOINT [ "npm", "start" ]
