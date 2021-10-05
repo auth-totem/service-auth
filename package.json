@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "cross-env NODE_PATH=. node src/index",
+    "start": "node src/index",
     "dev": "cross-env NODE_PATH=. env-cmd -f ./.env nodemon src/index"
   },
   "keywords": [],
