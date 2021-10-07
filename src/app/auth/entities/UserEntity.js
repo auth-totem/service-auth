@@ -4,7 +4,7 @@ module.exports = (user) => {
     name: user.name || null,
     status: 'A',
     uuid: user.uuid || null,
-    classId: user.classId || null,
+    idClass: user.idClass || null,
   };
   return obj;
 };
