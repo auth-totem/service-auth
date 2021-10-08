@@ -9,6 +9,11 @@ module.exports = ({ logger, userRepository }) => ({
   userRegister: async (user) => {
     const callName = `${fileName}.userRegister()`;
     logger.info(`${callName} entered with data:\n` + JSON.stringify(user));
+    const findUserWithCode = await userRepository.getUserByWallet(
+      user.codeWallet
+    );
+    if (findUserWithCode) throw new Error('user already created');
+
     const createdUser = createUser({ ...user, uuid: uuid() });
     await userRepository.createUser(createdUser);
     logger.info(`${callName} user created`);
